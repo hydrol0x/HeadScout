@@ -47,7 +47,16 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-const listMajors = require("./sheetsApi");
-const authorize = require("./authenticate");
+const { getSheetsData } = require("./sheetsApi");
+const SHEET_ID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
+const TAB_NAME = "Sheet1";
 
-authorize().then(listMajors).catch(console.error);
+getSheetsData(SHEET_ID, TAB_NAME)
+  .then((data) => {
+    // handle the fetched data here
+    console.log(data);
+  })
+  .catch((error) => {
+    // handle any errors that may occur
+    console.error(error);
+  });
