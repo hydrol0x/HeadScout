@@ -13,6 +13,9 @@ const createWindow = () => {
     height: 600,
     webPreferences: {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
+      nodeIntegration: true,
+      enableRemoteModule: true,
+      contextIsolation: false,
     },
   });
 
@@ -51,10 +54,11 @@ const { getSheetsData } = require("./sheetsApi");
 const SHEET_ID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
 const TAB_NAME = "Sheet1";
 
-getSheetsData(SHEET_ID, TAB_NAME)
+const data = getSheetsData(SHEET_ID, TAB_NAME)
   .then((data) => {
     // handle the fetched data here
-    console.log(data);
+    console.log("data fetch succesful");
+    return data;
   })
   .catch((error) => {
     // handle any errors that may occur

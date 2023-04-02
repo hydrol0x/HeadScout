@@ -26,15 +26,17 @@
  * ```
  */
 
-import "./index.css";
-
 import React from "react";
-import ReactDOM from "react-dom";
-import App from "./App";
+import ReactDOM from "react-dom/client";
 import "./index.css";
+import App from "./App";
+// require("@electron/remote")
+//   .require("@electron/remote/main")
+//   .enable(window.webContents);
 
-ReactDOM.render(<App />, document.getElementById("app"));
-
-console.log(
-  '👋 This message is being logged by "renderer.js", included via webpack'
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
 );
