@@ -15,7 +15,7 @@ const createWindow = () => {
       preload: MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY,
       nodeIntegration: true,
       enableRemoteModule: true,
-      contextIsolation: false,
+      // contextIsolation: false,
     },
   });
 
@@ -23,7 +23,7 @@ const createWindow = () => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
