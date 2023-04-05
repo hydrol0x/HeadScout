@@ -10,3 +10,7 @@
   - In future create proper backend
 - Re-create some simple statistics and features that my team currently uses
 - Add more user friendly UI to help pick robots, compare statistics, etc.
+
+### Contributors
+hydrol0x
+UB3R
