@@ -12,5 +12,5 @@
 - Add more user friendly UI to help pick robots, compare statistics, etc.
 
 ### Contributors
-hydrol0x
-UB3R
+ - hydrol0x
+ - UB3R
