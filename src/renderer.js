@@ -30,9 +30,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
-// require("@electron/remote")
-//   .require("@electron/remote/main")
-//   .enable(window.webContents);
+
+const func = async () => {
+  const reponse  = await window.versions.ping()
+  console.log(reponse); // returns `pong` in console
+}
+func()
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
