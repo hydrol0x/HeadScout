@@ -6,14 +6,15 @@ contextBridge.exposeInMainWorld("versions", {
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
   electron: () => process.versions.electron,
-  ping: () => ipcRenderer.invoke('ping'),
+  ping: () => ipcRenderer.invoke("ping"),
   // we can also expose variables, not just functions
 });
 
-contextBridge.exposeInMainWorld('electronAPI', {
-    setTitle: (title) => ipcRenderer.send('set-title', title)
-})
+contextBridge.exposeInMainWorld("electronAPI", {
+  setTitle: (title) => ipcRenderer.send("set-title", title),
+});
 
-contextBridge.exposeInMainWorld('sheetsAPI', {
-    getSheet: () => ipcRenderer.invoke('get-sheet')
-})
+contextBridge.exposeInMainWorld("sheetsAPI", {
+  getSheet: (sheetID, tabName) =>
+    ipcRenderer.invoke("get-sheet", sheetID, tabName),
+});
