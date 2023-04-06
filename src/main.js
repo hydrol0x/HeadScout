@@ -7,15 +7,15 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-function handleSetTitle (event, title) {
-  const webContents = event.sender
-  const win = BrowserWindow.fromWebContents(webContents)
-  win.setTitle(title)
+function handleSetTitle(event, title) {
+  const webContents = event.sender;
+  const win = BrowserWindow.fromWebContents(webContents);
+  win.setTitle(title);
 }
 
 function handleGetSheet(event) {
-    //TODO make it have params sheetID and tabName
-    // i.e unhardcode below
+  //TODO make it have params sheetID and tabName
+  // i.e unhardcode below
   const SHEET_ID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
   const TAB_NAME = "Sheet1";
 
@@ -46,7 +46,7 @@ const createWindow = () => {
     },
   });
 
-  ipcMain.handle('ping', () => 'pong');
+  ipcMain.handle("ping", () => "pong");
 
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
@@ -60,8 +60,8 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
   createWindow();
-  ipcMain.on('set-title', handleSetTitle);
-  ipcMain.handle('get-sheet', handleGetSheet);
+  ipcMain.on("set-title", handleSetTitle);
+  ipcMain.handle("get-sheet", handleGetSheet);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -83,4 +83,3 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-

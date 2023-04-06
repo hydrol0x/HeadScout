@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 
-
 const Test = () => {
   const [sheetsData, setSheetsData] = useState({
     "Match Number": "0",
@@ -22,23 +21,25 @@ const Test = () => {
     "Teleop Cubes Scored Bottom": "0",
     "Teleop Cones Dropped": "0",
     "Teleop Cubes Dropped": "0",
-    "End Game": ""
-});
+    "End Game": "",
+  });
 
-  const handleClick =async (e) => {
+  const handleClick = async (e) => {
     const data = await window.sheetsAPI.getSheet();
-    console.log("Raw data")
+    console.log("Raw data");
     console.log(data[0]);
     setSheetsData(data[0]);
-  }
+  };
 
   console.log("Sheet data");
   console.log(sheetsData);
   return (
     <div>
-      <button id='btn' type="button" onClick={handleClick}>Refresh</button> 
+      <button id="btn" type="button" onClick={handleClick}>
+        Refresh
+      </button>
       <p>{sheetsData["Auto Charging Station"]}</p>
-    </div>  
+    </div>
   );
 };
 

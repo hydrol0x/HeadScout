@@ -37,10 +37,12 @@
   "dependencies": {
     "@electron/remote": "^2.0.9",
     "@google-cloud/local-auth": "^2.1.0",
+    "bootstrap": "^5.2.3",
     "electron-squirrel-startup": "^1.0.0",
     "google-auth-library": "^8.7.0",
     "googleapis": "^114.0.0",
     "react": "^18.2.0",
+    "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0"
   }
 }
