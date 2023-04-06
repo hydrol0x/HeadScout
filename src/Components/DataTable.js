@@ -38,11 +38,11 @@ const DataTable = () => {
   //   });
   return (
     <div>
-      <Button onClick={handleClick} variant="primary">
+      <Button className="mb-2" onClick={handleClick} variant="primary">
         Reload
       </Button>
 
-      <Table>
+      <Table responsive striped bordered hover size="sm">
         <thead>
           <tr>
             {Object.keys(sheetsData[0]).map((key) => (
