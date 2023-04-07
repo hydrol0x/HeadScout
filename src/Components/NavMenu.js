@@ -9,10 +9,10 @@ function NavMenu() {
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>Navbar</Navbar.Brand>
+          <Navbar.Brand>HeadScout</Navbar.Brand>
           <Nav className="me-auto">
-            <LinkContainer to="/home">
-              <Nav.Link>Home</Nav.Link>
+            <LinkContainer to="/data_display">
+              <Nav.Link>Data Display</Nav.Link>
             </LinkContainer>
             <LinkContainer to="/test">
               <Nav.Link>Test</Nav.Link>

@@ -1,5 +1,5 @@
 import React from "react";
-import Home from "./Pages/Home";
+import DataDisplay from "./Pages/DataDisplay";
 import Test from "./Pages/Test";
 import NavMenu from "./Components/NavMenu";
 import { HashRouter, Routes, Route } from "react-router-dom";
@@ -9,8 +9,9 @@ const App = () => (
     <HashRouter>
       <NavMenu />
       <Routes>
-        <Route path="/" Component={Home} />
-        <Route path="/home" Component={Home} />
+        {/* might have a root page later when you initially load app */}
+        <Route path="/" Component={DataDisplay} />
+        <Route path="/data_display" Component={DataDisplay} />
         <Route path="/test" Component={Test} />
       </Routes>
     </HashRouter>

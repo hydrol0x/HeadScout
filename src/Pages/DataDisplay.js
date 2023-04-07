@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavMenu from "../Components/NavMenu";
 import DataTable from "../Components/DataTable";
 
-const Home = () => {
+const DataDisplay = () => {
   return (
     <Container fluid>
       <Row className="p-3">
@@ -20,4 +20,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default DataDisplay;
