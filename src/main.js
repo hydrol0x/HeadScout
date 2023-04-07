@@ -1,25 +1,19 @@
 const { getSheetsData } = require("./sheetsApi");
 const { app, BrowserWindow, ipcMain } = require("electron");
-const path = require("path");
+const { generateRobotObj, generateRobotTotals } = require("./DataFunctions");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-function handleSetTitle(event, title) {
-  const webContents = event.sender;
-  const win = BrowserWindow.fromWebContents(webContents);
-  win.setTitle(title);
-}
-
-function handleGetSheet(event) {
+let sheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
+let tabName = "Sheet1";
+const handleGetSheet = (event) => {
   //TODO make it have params sheetID and tabName
   // i.e unhardcode below
-  const SHEET_ID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
-  const TAB_NAME = "Sheet1";
 
-  const data = getSheetsData(SHEET_ID, TAB_NAME)
+  const data = getSheetsData(sheetID, tabName)
     .then((data) => {
       // handle the fetched data here
       console.log("Data fetch succesful");
@@ -31,7 +25,17 @@ function handleGetSheet(event) {
       console.error(error);
     });
   return data;
-}
+};
+
+const handleUpdateSheetIdentifiers = (event, newSheetID, newTabName) => {
+  sheetID = newSheetID;
+  tabName = newTabName;
+};
+
+const handleGetSheetIds = (event) => {
+  // needed to change names to avoid clashing var names in Settings.js
+  return { sheetsID: sheetID, tabID: tabName };
+};
 
 const createWindow = () => {
   // Create the browser window.
@@ -46,8 +50,6 @@ const createWindow = () => {
     },
   });
 
-  ipcMain.handle("ping", () => "pong");
-
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
@@ -60,8 +62,9 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
   createWindow();
-  ipcMain.on("set-title", handleSetTitle);
   ipcMain.handle("get-sheet", handleGetSheet);
+  ipcMain.handle("get-sheet-ids", handleGetSheetIds);
+  ipcMain.on("update-sheet-identifiers", handleUpdateSheetIdentifiers);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -83,3 +86,8 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+handleGetSheet()
+  .then((data) => generateRobotObj(data))
+  .then((robots) => {
+    console.log(generateRobotTotals(robots)["5"]);
+  });

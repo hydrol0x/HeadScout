@@ -2,19 +2,9 @@
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 const { contextBridge, ipcRenderer } = require("electron");
 
-contextBridge.exposeInMainWorld("versions", {
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
-  ping: () => ipcRenderer.invoke("ping"),
-  // we can also expose variables, not just functions
-});
-
-contextBridge.exposeInMainWorld("electronAPI", {
-  setTitle: (title) => ipcRenderer.send("set-title", title),
-});
-
 contextBridge.exposeInMainWorld("sheetsAPI", {
-  getSheet: (sheetID, tabName) =>
-    ipcRenderer.invoke("get-sheet", sheetID, tabName),
+  getSheet: () => ipcRenderer.invoke("get-sheet"),
+  getSheetIdentifiers: () => ipcRenderer.invoke("get-sheet-ids"),
+  updateSheetIdentifiers: (newSheetID, newTabName) =>
+    ipcRenderer.send("update-sheet-identifiers", newSheetID, newTabName),
 });
