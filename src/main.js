@@ -1,19 +1,11 @@
 const { getSheetsData } = require("./sheetsApi");
 const { app, BrowserWindow, ipcMain } = require("electron");
-const path = require("path");
 const { generateRobotArray } = require("./DataFunctions");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
-
-function handleSetTitle(event, title) {
-  const webContents = event.sender;
-  const win = BrowserWindow.fromWebContents(webContents);
-  win.setTitle(title);
-}
-
 function handleGetSheet(event) {
   //TODO make it have params sheetID and tabName
   // i.e unhardcode below
@@ -47,8 +39,6 @@ const createWindow = () => {
     },
   });
 
-  ipcMain.handle("ping", () => "pong");
-
   // and load the index.html of the app.
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
@@ -61,7 +51,6 @@ const createWindow = () => {
 // Some APIs can only be used after this event occurs.
 app.on("ready", () => {
   createWindow();
-  ipcMain.on("set-title", handleSetTitle);
   ipcMain.handle("get-sheet", handleGetSheet);
 });
 
