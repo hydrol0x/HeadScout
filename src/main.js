@@ -86,4 +86,6 @@ app.on("activate", () => {
 // code. You can also put them in separate files and import them here.
 handleGetSheet()
   .then((data) => generateRobotArray(data))
-  .then((robots) => console.log(robots));
+  .then((robots) => {
+    console.log(robots);
+  });
