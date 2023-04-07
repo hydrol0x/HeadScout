@@ -14,8 +14,8 @@ function NavMenu() {
             <LinkContainer to="/data_display">
               <Nav.Link>Data Display</Nav.Link>
             </LinkContainer>
-            <LinkContainer to="/test">
-              <Nav.Link>Test</Nav.Link>
+            <LinkContainer to="/team_lookup">
+              <Nav.Link>Team Lookup</Nav.Link>
             </LinkContainer>
           </Nav>
         </Container>
