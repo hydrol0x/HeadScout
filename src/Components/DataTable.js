@@ -1,6 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import { Table, Button, Spinner } from "react-bootstrap";
+import { Table, Button, Spinner, Container, Row, Col } from "react-bootstrap";
 
 const isEmpty = (sheetsData) => {
   return sheetsData.length === 1 && Object.keys(sheetsData[0]).length === 0;
@@ -26,14 +26,20 @@ const DataTable = () => {
   return (
     <div>
       {isEmpty(sheetsData) ? (
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
+        <Row className="m-3 justify-content-md-center">
+          <Spinner className="center" animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        </Row>
       ) : (
-        <div>
-          <Button className="mb-2" onClick={handleSheetsData} variant="primary">
-            Reload
-          </Button>
+        <Container className="p-0 pt-2">
+          <Row className="p-3 ">
+            <Col>
+              <Button onClick={handleSheetsData} variant="primary">
+                Reload
+              </Button>
+            </Col>
+          </Row>
 
           <Table responsive striped bordered hover size="sm">
             <thead>
@@ -55,7 +61,7 @@ const DataTable = () => {
               })}
             </tbody>
           </Table>
-        </div>
+        </Container>
       )}
     </div>
   );

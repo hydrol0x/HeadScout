@@ -5,8 +5,8 @@ import DataTable from "../Components/DataTable";
 
 const Home = () => {
   return (
-    <Container fluid className="p-5">
-      <Row>
+    <Container fluid>
+      <Row className="p-3">
         <Col>
           <h1 className="text-center">Data Display</h1>
         </Col>
