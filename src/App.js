@@ -1,23 +1,20 @@
 import React from "react";
-import DataTable from "./Components/DataTable.js";
-import Test from "./Components/Test.js";
-import { Container, Row, Col } from "react-bootstrap"
+import Home from "./Pages/Home";
+import Test from "./Pages/Test";
+import NavMenu from "./Components/NavMenu";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 const App = () => (
-  <div>
-    <Container fluid className="p-5">
-      <Row >
-        <Col>
-          <h1 className="text-center">Data Display</h1>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <DataTable />
-        </Col>
-      </Row>
-    </Container>
-  </div>
+  <>
+    <HashRouter>
+      <NavMenu />
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/home" Component={Home} />
+        <Route path="/test" Component={Test} />
+      </Routes>
+    </HashRouter>
+  </>
 );
 
 export default App;

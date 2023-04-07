@@ -46,7 +46,7 @@ const DataTable = () => {
         <thead>
           <tr>
             {Object.keys(sheetsData[0]).map((key) => (
-              <th>{key}</th>
+              <th key={key}>{key}</th>
             ))}
           </tr>
         </thead>
