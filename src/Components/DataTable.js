@@ -41,6 +41,7 @@ const DataTable = () => {
             </Col>
           </Row>
 
+          {/* TODO: add a "key" prop each list value */}
           <Table responsive striped bordered hover size="sm">
             <thead>
               <tr>

@@ -9,6 +9,8 @@ if (require("electron-squirrel-startup")) {
 
 let sheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
 let tabName = "Sheet1";
+// TODO: Handle error as a message in the page instead of crashing (i.e return null )
+//  and check in DataTable, then display that failed
 const handleGetSheet = (event) => {
   //TODO make it have params sheetID and tabName
   // i.e unhardcode below
