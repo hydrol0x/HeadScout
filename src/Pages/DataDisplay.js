@@ -1,6 +1,5 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import NavMenu from "../Components/NavMenu";
 import DataTable from "../Components/DataTable";
 
 const DataDisplay = () => {

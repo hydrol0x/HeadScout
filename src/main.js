@@ -1,17 +1,19 @@
 const { getSheetsData } = require("./sheetsApi");
 const { app, BrowserWindow, ipcMain } = require("electron");
 const { generateRobotObj, generateRobotTotals } = require("./DataFunctions");
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {
   app.quit();
 }
-function handleGetSheet(event) {
+
+let sheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
+let tabName = "Sheet1";
+const handleGetSheet = (event) => {
   //TODO make it have params sheetID and tabName
   // i.e unhardcode below
-  const SHEET_ID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
-  const TAB_NAME = "Sheet1";
 
-  const data = getSheetsData(SHEET_ID, TAB_NAME)
+  const data = getSheetsData(sheetID, tabName)
     .then((data) => {
       // handle the fetched data here
       console.log("Data fetch succesful");
@@ -23,7 +25,17 @@ function handleGetSheet(event) {
       console.error(error);
     });
   return data;
-}
+};
+
+const handleUpdateSheetIdentifiers = (event, newSheetID, newTabName) => {
+  sheetID = newSheetID;
+  tabName = newTabName;
+};
+
+const handleGetSheetIds = (event) => {
+  // needed to change names to avoid clashing var names in Settings.js
+  return { sheetsID: sheetID, tabID: tabName };
+};
 
 const createWindow = () => {
   // Create the browser window.
@@ -42,7 +54,7 @@ const createWindow = () => {
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
   // Open the DevTools.
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
@@ -51,6 +63,8 @@ const createWindow = () => {
 app.on("ready", () => {
   createWindow();
   ipcMain.handle("get-sheet", handleGetSheet);
+  ipcMain.handle("get-sheet-ids", handleGetSheetIds);
+  ipcMain.on("update-sheet-identifiers", handleUpdateSheetIdentifiers);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
@@ -75,5 +89,5 @@ app.on("activate", () => {
 handleGetSheet()
   .then((data) => generateRobotObj(data))
   .then((robots) => {
-    console.log(generateRobotTotals(robots)["179"]);
+    console.log(generateRobotTotals(robots)["5"]);
   });

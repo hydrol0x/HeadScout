@@ -1,13 +1,22 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 const Settings = () => {
   const [sheetID, setSheetID] = useState("");
   const [tabName, setTabName] = useState("");
+  useEffect(() => {
+    const getIds = async () => {
+      const { sheetsID, tabID } = await window.sheetsAPI.getSheetIdentifiers();
+      setSheetID(sheetsID);
+      setTabName(tabID);
+    };
+    getIds();
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    window.sheetsAPI.updateSheetIdentifiers(sheetID, tabName);
   };
 
   return (
@@ -18,6 +27,7 @@ const Settings = () => {
         </Col>
       </Row>
       <Row>
+        {/* TODO: make the form a component? */}
         <Col>
           <Form>
             <Form.Group className="mb-3" controlId="formSheetId">
