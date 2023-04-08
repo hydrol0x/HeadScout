@@ -15,6 +15,7 @@ const DataTable = () => {
 
   const handleSheetsData = async (e) => {
     const data = await window.sheetsAPI.getSheet();
+    console.log(data);
     setSheetsData(data);
   };
 
