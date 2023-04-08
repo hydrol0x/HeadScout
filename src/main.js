@@ -9,6 +9,8 @@ if (require("electron-squirrel-startup")) {
 
 let sheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
 let tabName = "Sheet1";
+// TODO: Handle error as a message in the page instead of crashing (i.e return null )
+//  and check in DataTable, then display that failed
 const handleGetSheet = (event) => {
   //TODO make it have params sheetID and tabName
   // i.e unhardcode below
@@ -16,9 +18,10 @@ const handleGetSheet = (event) => {
   const data = getSheetsData(sheetID, tabName)
     .then((data) => {
       // handle the fetched data here
-      console.log("Data fetch succesful");
-      return data;
-      // return "definitely data!!";
+      // For future, will be some error handler that can create a toast
+      return Object.keys(data)[0] === "error"
+        ? [{ ERROR: "An error occured when fetching data." }]
+        : data;
     })
     .catch((error) => {
       // handle any errors that may occur
@@ -86,8 +89,3 @@ app.on("activate", () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
-handleGetSheet()
-  .then((data) => generateRobotObj(data))
-  .then((robots) => {
-    console.log(generateRobotTotals(robots)["5"]);
-  });
