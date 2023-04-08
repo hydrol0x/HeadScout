@@ -32,37 +32,40 @@ const DataTable = () => {
           </Spinner>
         </Row>
       ) : (
-        <Container className="p-0 pt-2">
-          <Row className="p-3 ">
-            <Col>
-              <Button onClick={handleSheetsData} variant="primary">
+        <div>
+          {/* TODO: add a "key" prop each list value */}
+          <Row>
+            <Col className="px-5">
+              <Button
+                onClick={handleSheetsData}
+                className="my-2"
+                variant="primary"
+              >
                 Reload
               </Button>
+              <Table responsive striped bordered hover size="sm">
+                <thead>
+                  <tr>
+                    {Object.keys(sheetsData[0]).map((key) => (
+                      <th key={key}>{key}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {sheetsData.map((match) => {
+                    return (
+                      <tr>
+                        {Object.values(match).map((value) => {
+                          return <td>{value}</td>;
+                        })}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </Table>
             </Col>
           </Row>
-
-          {/* TODO: add a "key" prop each list value */}
-          <Table responsive striped bordered hover size="sm">
-            <thead>
-              <tr>
-                {Object.keys(sheetsData[0]).map((key) => (
-                  <th key={key}>{key}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {sheetsData.map((match) => {
-                return (
-                  <tr>
-                    {Object.values(match).map((value) => {
-                      return <td>{value}</td>;
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </Container>
+        </div>
       )}
     </div>
   );
