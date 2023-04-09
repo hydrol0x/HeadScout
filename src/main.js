@@ -30,6 +30,7 @@ const handleGetSheet = (event) => {
   return data;
 };
 
+// TODO: cache a lot of these values and then bind it to a signle reload event (then reload button would call event)
 const handleUpdateSheetIdentifiers = (event, newSheetID, newTabName) => {
   sheetID = newSheetID;
   tabName = newTabName;
@@ -40,9 +41,25 @@ const handleGetSheetIds = (event) => {
   return { sheetsID: sheetID, tabID: tabName };
 };
 
-const handleGenerateRobotTotals = (event) => {
-  return "NOT IMPLEMENTED";
+const doGenerateRobotTotals = () => {
+  // helper function so I don't have to do this every time
+  // const sheetsData = getSheetsData(sheetID, tabName);
+  // console.log(sheetsData);
+  // const robotObj = generateRobotObj(sheetsData);
+  // console.log(robotObj);
+  const robotTotals = getSheetsData(sheetID, tabName).then((sheetsData) => {
+    return generateRobotTotals(generateRobotObj(sheetsData));
+  }).catch((error) => console.error(error));
+  return robotTotals; 
 };
+
+const handleGetRobotTotals = async (event, teamNum) => {
+  // Handles the event. Only returns a single robot's totals. If we need all of them, the function
+  // `doGenerateRobotTotals` can be used, although at that point, it should probably be renamed
+
+  robotTotals = await doGenerateRobotTotals()
+  return robotTotals[teamNum];
+} 
 
 const createWindow = () => {
   // Create the browser window.
@@ -71,7 +88,7 @@ app.on("ready", () => {
   createWindow();
   ipcMain.handle("get-sheet", handleGetSheet);
   ipcMain.handle("get-sheet-ids", handleGetSheetIds);
-  ipcMain.handle("generate-robot-totals", handleGenerateRobotTotals);
+  ipcMain.handle("get-robot-totals", handleGetRobotTotals);
   ipcMain.on("update-sheet-identifiers", handleUpdateSheetIdentifiers);
 });
 

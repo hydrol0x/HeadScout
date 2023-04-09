@@ -9,6 +9,6 @@ contextBridge.exposeInMainWorld("sheetsAPI", {
     ipcRenderer.send("update-sheet-identifiers", newSheetID, newTabName),
 });
 
-contextBridge.exposeInMainWorld("dataFunctions", {
-  generateRobotTotals: () => ipcRenderer.invoke("generate-robot-totals"),
-});
+contextBridge.exposeInMainWorld('dataFunctions', {
+  getRobotTotals: (teamNum) => ipcRenderer.invoke("get-robot-totals", teamNum),
+})

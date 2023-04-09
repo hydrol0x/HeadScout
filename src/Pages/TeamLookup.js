@@ -1,14 +1,27 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import DataTable2 from "../Components/DataTable2";
 
 const TeamLookup = () => {
   const [teamNumInput, setTeamNumInput] = useState("");
+  const [robotTotals, setRobotTotals] = useState({});
+
+  const getRobotTotals = async (teamNumInput) => {
+    const data = await window.dataFunctions.getRobotTotals(teamNumInput);
+    console.log(data)
+    setRobotTotals(data);
+  }
+
+  useEffect(() => {
+    console.log("robot totals " + robotTotals["Teleop Cones Scored Top"]);
+  
+  }, [robotTotals])
+  
 
   const handleTeamNumSubmit = (e) => {
     e.preventDefault();
-    console.log(teamNumInput);
+    getRobotTotals(teamNumInput);
   };
   return (
     <Container fluid>
