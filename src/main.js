@@ -40,6 +40,10 @@ const handleGetSheetIds = (event) => {
   return { sheetsID: sheetID, tabID: tabName };
 };
 
+const handleGenerateRobotTotals = (event) => {
+  return "NOT IMPLEMENTED";
+};
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -67,6 +71,7 @@ app.on("ready", () => {
   createWindow();
   ipcMain.handle("get-sheet", handleGetSheet);
   ipcMain.handle("get-sheet-ids", handleGetSheetIds);
+  ipcMain.handle("generate-robot-totals", handleGenerateRobotTotals);
   ipcMain.on("update-sheet-identifiers", handleUpdateSheetIdentifiers);
 });
 
