@@ -47,19 +47,21 @@ const doGenerateRobotTotals = () => {
   // console.log(sheetsData);
   // const robotObj = generateRobotObj(sheetsData);
   // console.log(robotObj);
-  const robotTotals = getSheetsData(sheetID, tabName).then((sheetsData) => {
-    return generateRobotTotals(generateRobotObj(sheetsData));
-  }).catch((error) => console.error(error));
-  return robotTotals; 
+  const robotTotals = getSheetsData(sheetID, tabName)
+    .then((sheetsData) => {
+      return generateRobotTotals(generateRobotObj(sheetsData));
+    })
+    .catch((error) => console.error(error));
+  return robotTotals;
 };
 
 const handleGetRobotTotals = async (event, teamNum) => {
   // Handles the event. Only returns a single robot's totals. If we need all of them, the function
   // `doGenerateRobotTotals` can be used, although at that point, it should probably be renamed
 
-  robotTotals = await doGenerateRobotTotals()
+  robotTotals = await doGenerateRobotTotals();
   return robotTotals[teamNum];
-} 
+};
 
 const createWindow = () => {
   // Create the browser window.

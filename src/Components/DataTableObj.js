@@ -3,28 +3,30 @@ import { useState, useEffect } from "react";
 import { Table, Button, Spinner, Container, Row, Col } from "react-bootstrap";
 
 const isEmpty = (sheetsData) => {
-  return sheetsData.length === 1 && Object.keys(sheetsData[0]).length === 0;
+  // return sheetsData.length === 1 && Object.keys(sheetsData[0]).length === 0;
+  return Object.entries(sheetsData).length === 0;
 };
 
 // TODO implement caching
 // Has to work with useState but still auto-fetch data when the page initially loads
 // Maybe just store to some place like external file or  however you can store stuff
 // and then fallback on that if there is a failed fetch
-const DataTable2 = ({ dataFunction }) => {
-  const [tableData, setTableData] = useState([{}]);
+const DataTable = ({ dataFunction, data }) => {
+  const [tableData, setTableData] = useState({});
 
   const handleTableData = async (e) => {
     // dataFunction is passed in, function will be from main process by IPC
     // e.g if you had it pass in `getSheets` it will display sheets data.
     // if you pass in `generateRobotTotals` it will display robot totals
-    const data = await dataFunction();
+    // const data = await dataFunction();
     setTableData(data);
   };
 
   // get data on DOM load
   useEffect(() => {
+    console.log(Object.entries(data));
     handleTableData();
-  }, []);
+  }, [data]);
 
   return (
     <div>
@@ -49,21 +51,18 @@ const DataTable2 = ({ dataFunction }) => {
               <Table responsive striped bordered hover size="sm">
                 <thead>
                   <tr>
-                    {Object.keys(tableData[0]).map((key) => (
+                    {Object.keys(tableData).map((key) => (
                       <th key={key}>{key}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {tableData.map((row) => {
-                    return (
-                      <tr>
-                        {Object.values(row).map((value) => {
-                          return <td>{value}</td>;
-                        })}
-                      </tr>
-                    );
-                  })}
+                  <tr>
+                    {Object.entries(tableData).map((entry) => {
+                      // [key, value]
+                      return <td>{entry[1]}</td>;
+                    })}
+                  </tr>
                 </tbody>
               </Table>
             </Col>
@@ -74,4 +73,4 @@ const DataTable2 = ({ dataFunction }) => {
   );
 };
 
-export default DataTable2;
+export default DataTable;

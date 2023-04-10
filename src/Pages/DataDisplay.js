@@ -1,12 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import DataTable from "../Components/DataTable";
+import DataTable from "../Components/DataTableObjArr";
 
 const DataDisplay = () => {
   const [robotTotals, setrobotTotals] = useState({});
   return (
-    
     <Container fluid>
       <Row className="p-3">
         <Col>

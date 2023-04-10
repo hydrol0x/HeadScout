@@ -1,23 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import DataTable2 from "../Components/DataTable2";
+import DataTable from "../Components/DataTableObj";
 
 const TeamLookup = () => {
   const [teamNumInput, setTeamNumInput] = useState("");
   const [robotTotals, setRobotTotals] = useState({});
 
-  const getRobotTotals = async (teamNumInput) => {
+  const getRobotTotals = async () => {
     const data = await window.dataFunctions.getRobotTotals(teamNumInput);
-    console.log(data)
     setRobotTotals(data);
-  }
+  };
 
-  useEffect(() => {
-    console.log("robot totals " + robotTotals["Teleop Cones Scored Top"]);
-  
-  }, [robotTotals])
-  
+  useEffect(() => {}, [robotTotals]);
 
   const handleTeamNumSubmit = (e) => {
     e.preventDefault();
@@ -55,8 +50,13 @@ const TeamLookup = () => {
           <img height={250} width={250} />
         </Col>
       </Row>
-      <Row className="bg-light">
-        <DataTable2 />
+      <Row className="bg-light my-3 py-3">
+        <h1 className="text-center"> Totals </h1>
+        <DataTable dataFunction={getRobotTotals} data={robotTotals} />
+      </Row>
+      <Row className="bg-light my-3 py-3">
+        <h1 className="text-center"> Averages </h1>
+        <DataTable dataFunction={getRobotTotals} data={robotTotals} />
       </Row>
     </Container>
   );
