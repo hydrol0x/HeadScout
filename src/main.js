@@ -1,6 +1,10 @@
 const { getSheetsData } = require("./sheetsApi");
 const { app, BrowserWindow, ipcMain } = require("electron");
-const { generateRobotObj, generateRobotTotals } = require("./DataFunctions");
+const {
+  generateRobotObj,
+  generateRobotTotals,
+  generateRobotAverages,
+} = require("./DataFunctions");
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require("electron-squirrel-startup")) {

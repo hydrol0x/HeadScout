@@ -40,6 +40,8 @@ const generateRobotTotals = (robotsObj) => {
       robotTotals[teamNum] = {};
     }
     for (const [matchNum, match] of Object.entries(robot)) {
+      delete match["Match Number"];
+      delete match["Team Number"];
       for (const [dataName, data] of Object.entries(match)) {
         // Numerical -> add the value to the stored value
         if (dataName in robotTotals[teamNum]) {
@@ -61,4 +63,22 @@ const generateRobotTotals = (robotsObj) => {
   return robotTotals;
 };
 
-module.exports = { generateRobotObj, generateRobotTotals };
+const generateRobotAverages = (robotsObj) => {
+  const numMatches = Object.keys(robotsObj).length;
+
+  const robotTotals = generateRobotTotals(robotsObj);
+  // const robotAverages = Object.keys(robotTotals).map((key) => {
+  //   return [key];
+  // });
+  const robotAverages = Object.fromEntries(
+    Object.entries(robotTotals).map(([key, total]) => [key, total / numMatches])
+  );
+
+  return robotAverages;
+};
+
+module.exports = {
+  generateRobotObj,
+  generateRobotTotals,
+  generateRobotAverages,
+};

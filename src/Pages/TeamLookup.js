@@ -6,10 +6,16 @@ import DataTable from "../Components/DataTableObj";
 const TeamLookup = () => {
   const [teamNumInput, setTeamNumInput] = useState("");
   const [robotTotals, setRobotTotals] = useState({});
+  const [robotAverages, setRobotAverages] = useState({});
 
   const getRobotTotals = async () => {
     const data = await window.dataFunctions.getRobotTotals(teamNumInput);
     setRobotTotals(data);
+  };
+
+  const getRobotAverages = async () => {
+    const data = await window.dataFunctions.getRobotAverages(teamNumInput);
+    setRobotAverages(data);
   };
 
   useEffect(() => {}, [robotTotals]);
@@ -52,11 +58,11 @@ const TeamLookup = () => {
       </Row>
       <Row className="bg-light my-3 py-3">
         <h1 className="text-center"> Totals </h1>
-        <DataTable dataFunction={getRobotTotals} data={robotTotals} />
+        <DataTable data={robotTotals} />
       </Row>
       <Row className="bg-light my-3 py-3">
         <h1 className="text-center"> Averages </h1>
-        <DataTable dataFunction={getRobotTotals} data={robotTotals} />
+        <DataTable data={robotAverages} />
       </Row>
     </Container>
   );
