@@ -59,12 +59,32 @@ const doGenerateRobotTotals = () => {
   return robotTotals;
 };
 
+const doGenerateRobotObj = () => {
+  console.log("generating robot Obj");
+  const robotObj = getSheetsData(sheetID, tabName)
+    .then((sheetsData) => {
+      return generateRobotObj(sheetsData);
+    })
+    .catch((error) => console.error(error));
+  console.log(`robot obj ${robotObj}`);
+  return robotObj;
+};
+
 const handleGetRobotTotals = async (event, teamNum) => {
   // Handles the event. Only returns a single robot's totals. If we need all of them, the function
   // `doGenerateRobotTotals` can be used, although at that point, it should probably be renamed
 
-  robotTotals = await doGenerateRobotTotals();
+  const robotTotals = await doGenerateRobotTotals();
   return robotTotals[teamNum];
+};
+
+const handleGetRobotAverages = async (event, teamNum) => {
+  console.log("getting robot avgs");
+  const robotAverages = generateRobotAverages(
+    await doGenerateRobotObj(),
+    teamNum
+  );
+  return robotAverages;
 };
 
 const createWindow = () => {
@@ -95,6 +115,7 @@ app.on("ready", () => {
   ipcMain.handle("get-sheet", handleGetSheet);
   ipcMain.handle("get-sheet-ids", handleGetSheetIds);
   ipcMain.handle("get-robot-totals", handleGetRobotTotals);
+  ipcMain.handle("get-robot-averages", handleGetRobotAverages);
   ipcMain.on("update-sheet-identifiers", handleUpdateSheetIdentifiers);
 });
 

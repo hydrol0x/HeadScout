@@ -63,10 +63,10 @@ const generateRobotTotals = (robotsObj) => {
   return robotTotals;
 };
 
-const generateRobotAverages = (robotsObj) => {
-  const numMatches = Object.keys(robotsObj).length;
+const generateRobotAverages = (robotsObj, teamNum) => {
+  const numMatches = Object.keys(robotsObj[teamNum]).length;
 
-  const robotTotals = generateRobotTotals(robotsObj);
+  const robotTotals = generateRobotTotals(robotsObj)[teamNum];
   // const robotAverages = Object.keys(robotTotals).map((key) => {
   //   return [key];
   // });

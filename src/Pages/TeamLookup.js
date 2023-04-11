@@ -22,7 +22,8 @@ const TeamLookup = () => {
 
   const handleTeamNumSubmit = (e) => {
     e.preventDefault();
-    getRobotTotals(teamNumInput);
+    getRobotTotals();
+    getRobotAverages();
   };
   return (
     <Container fluid>
