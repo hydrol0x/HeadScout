@@ -40,6 +40,9 @@ const DataTable = ({ dataFunction, data }) => {
         <div>
           {/* TODO: add a "key" prop each list value */}
           <Row>
+            {/* todo :figure out how to make the button work */}
+            {/* currently doesn't reset data b/c data is passed in */}
+            {/* maybe will require a diff type of react hook */}
             <Col className="px-5">
               <Button
                 onClick={handleTableData}
@@ -60,7 +63,10 @@ const DataTable = ({ dataFunction, data }) => {
                   <tr>
                     {Object.entries(tableData).map((entry) => {
                       // [key, value]
-                      return <td>{entry[1]}</td>;
+                      const data = entry[1].toLocaleString(undefined, {
+                        maximumFractionDigits: 2,
+                      }); // makes decimal formatted better
+                      return <td>{data}</td>;
                     })}
                   </tr>
                 </tbody>
