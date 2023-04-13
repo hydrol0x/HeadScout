@@ -11,13 +11,26 @@ if (require("electron-squirrel-startup")) {
   app.quit();
 }
 
-let sheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
-let tabName = "Sheet1";
+// globals and stuff will be moved to a better place later
+let pitScoutSheetID  = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
+let pitScoutTabName = "Sheet4"; 
+let matchSheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
+let matchTabName = "Sheet1";
 // TODO: Handle error as a message in the page instead of crashing (i.e return null )
 //  and check in DataTable, then display that failed
-const handleGetSheet = (event) => {
-  //TODO make it have params sheetID and tabName
-  // i.e unhardcode below
+const handleGetSheet = (event, type) => {
+  // returns the data depending on the type of sheet requested, either match data or pit scouting data
+  let sheetID;
+  let tabName;
+  if (type === "pitScout") {
+    sheetID = pitScoutSheetID;
+    tabName = pitScoutTabName ;
+  } else if (type === "match") {
+    sheetID = matchSheetID;
+    tabName =  matchTabName;
+  } else {
+    console.error(`ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`);
+  }
 
   const data = getSheetsData(sheetID, tabName)
     .then((data) => {
@@ -35,12 +48,35 @@ const handleGetSheet = (event) => {
 };
 
 // TODO: cache a lot of these values and then bind it to a signle reload event (then reload button would call event)
-const handleUpdateSheetIdentifiers = (event, newSheetID, newTabName) => {
-  sheetID = newSheetID;
-  tabName = newTabName;
+const handleUpdateSheetIds = (event, newSheetID, newTabName, type) => {
+  // based on whether you are setting the pit scouting google sheet IDs or the match data 
+  if (type === "pitScout") {
+    pitScoutSheetID = newSheetID;
+    pitScoutTabName = newTabName;
+  } else if (type === "match") {
+    matchSheetID = newSheetID;
+    matchTabName = newTabName;
+  } else {
+    console.error(`ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`);
+  }
 };
 
-const handleGetSheetIds = (event) => {
+const handleGetSheetIds = (event, type) => {
+  console.log("handling sheet ids")
+  let sheetsID;
+  let tabID;
+  if (type === "pitScout") {
+    console.log("pitscout")
+    sheetsID = pitScoutSheetID;
+    tabID= pitScoutTabName;
+  } else if (type === "match") {
+    console.log("match")
+    sheetsID = matchSheetID;
+            console.log(`ID: ${sheetsID} `);
+    tabID=  matchTabName;
+  } else {
+    console.error(`ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`);
+  }
   // needed to change names to avoid clashing var names in Settings.js
   return { sheetsID: sheetID, tabID: tabName };
 };
@@ -116,7 +152,7 @@ app.on("ready", () => {
   ipcMain.handle("get-sheet-ids", handleGetSheetIds);
   ipcMain.handle("get-robot-totals", handleGetRobotTotals);
   ipcMain.handle("get-robot-averages", handleGetRobotAverages);
-  ipcMain.on("update-sheet-identifiers", handleUpdateSheetIdentifiers);
+  ipcMain.on("update-sheet-ids", handleUpdateSheetIds);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

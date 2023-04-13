@@ -10,11 +10,11 @@ const isEmpty = (sheetsData) => {
 // Has to work with useState but still auto-fetch data when the page initially loads
 // Maybe just store to some place like external file or  however you can store stuff
 // and then fallback on that if there is a failed fetch
-const DataTable = () => {
+const DataTable = ({sheetType}) => {
   const [sheetsData, setSheetsData] = useState([{}]);
 
   const handleSheetsData = async (e) => {
-    const data = await window.sheetsAPI.getSheet();
+    const data = await window.sheetsAPI.getSheet(sheetType);
     setSheetsData(data);
   };
 

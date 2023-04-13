@@ -3,10 +3,10 @@
 const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("sheetsAPI", {
-  getSheet: () => ipcRenderer.invoke("get-sheet"),
-  getSheetIdentifiers: () => ipcRenderer.invoke("get-sheet-ids"),
-  updateSheetIdentifiers: (newSheetID, newTabName) =>
-    ipcRenderer.send("update-sheet-identifiers", newSheetID, newTabName),
+  getSheet: (type) => ipcRenderer.invoke("get-sheet", type),
+  getSheetIds: (type) => ipcRenderer.invoke("get-sheet-ids", type),
+  updateSheetIds: (newSheetID, newTabName) =>
+    ipcRenderer.send("update-sheet-ids", newSheetID, newTabName, type),
 });
 
 contextBridge.exposeInMainWorld("dataFunctions", {
