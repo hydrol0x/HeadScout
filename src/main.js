@@ -78,7 +78,7 @@ const handleGetSheetIds = (event, type) => {
     console.error(`ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`);
   }
   // needed to change names to avoid clashing var names in Settings.js
-  return { sheetsID: sheetID, tabID: tabName };
+  return { sheetsID: sheetsID, tabID: tabID};
 };
 
 const doGenerateRobotTotals = () => {
