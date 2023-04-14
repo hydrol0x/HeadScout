@@ -7,6 +7,7 @@ const TeamLookup = () => {
   const [teamNumInput, setTeamNumInput] = useState("");
   const [robotTotals, setRobotTotals] = useState({});
   const [robotAverages, setRobotAverages] = useState({});
+  const [pitScoutData, setPitScoutData] = useState({});
   const [imageUrl, setImageUrl] = useState("");
 
   const getRobotTotals = async () => {
@@ -19,16 +20,26 @@ const TeamLookup = () => {
     setRobotAverages(data);
   };
 
-  const getImageUrl = async () => {
-    const pitScoutData = await window.sheetsAPI.getSheet("pitScout");
-    console.log(pitScoutData);
-    // in the future, pit scout data should just be added to robotObj generator function
-    pitScoutData.map((team) => {
+  const getPitScoutData = async () => {
+    const data = await window.sheetsAPI.getSheet("pitScout");
+    data.map((team) => {
       if (team["Team #"] === teamNumInput) {
+        setPitScoutData(team);
         setImageUrl(team["Image"]);
       }
     });
   };
+
+  // const getImageUrl = async () => {
+  //   const pitScoutData = await window.sheetsAPI.getSheet("pitScout");
+  //   console.log(pitScoutData);
+  //   // in the future, pit scout data should just be added to robotObj generator function
+  //   pitScoutData.map((team) => {
+  //     if (team["Team #"] === teamNumInput) {
+  //       setImageUrl(team["Image"]);
+  //     }
+  //   });
+  // };
 
   useEffect(() => {}, [robotTotals]);
 
@@ -36,7 +47,8 @@ const TeamLookup = () => {
     e.preventDefault();
     getRobotTotals();
     getRobotAverages();
-    getImageUrl();
+    // getImageUrl();
+    getPitScoutData();
   };
   return (
     <Container fluid>
@@ -77,6 +89,10 @@ const TeamLookup = () => {
       <Row className="bg-light my-3 py-3">
         <h1 className="text-center"> Averages </h1>
         <DataTable data={robotAverages} />
+      </Row>
+      <Row className="bg-light my-3 py-3">
+        <h1 className="text-center"> Pit</h1>
+        <DataTable data={pitScoutData} />
       </Row>
     </Container>
   );
