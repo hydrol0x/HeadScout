@@ -24,7 +24,6 @@ const DataTable = ({ dataFunction, data }) => {
 
   // get data on DOM load
   useEffect(() => {
-    console.log(Object.entries(data));
     handleTableData();
   }, [data]);
 

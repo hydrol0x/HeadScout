@@ -7,6 +7,7 @@ const TeamLookup = () => {
   const [teamNumInput, setTeamNumInput] = useState("");
   const [robotTotals, setRobotTotals] = useState({});
   const [robotAverages, setRobotAverages] = useState({});
+  const [imageUrl, setImageUrl] = useState("");
 
   const getRobotTotals = async () => {
     const data = await window.dataFunctions.getRobotTotals(teamNumInput);
@@ -18,12 +19,24 @@ const TeamLookup = () => {
     setRobotAverages(data);
   };
 
+  const getImageUrl = async () => {
+    const pitScoutData = await window.sheetsAPI.getSheet("pitScout");
+    console.log(pitScoutData);
+    // in the future, pit scout data should just be added to robotObj generator function
+    pitScoutData.map((team) => {
+      if (team["Team #"] === teamNumInput) {
+        setImageUrl(team["Image"]);
+      }
+    });
+  };
+
   useEffect(() => {}, [robotTotals]);
 
   const handleTeamNumSubmit = (e) => {
     e.preventDefault();
     getRobotTotals();
     getRobotAverages();
+    getImageUrl();
   };
   return (
     <Container fluid>
@@ -54,7 +67,7 @@ const TeamLookup = () => {
           </Form>
         </Col>
         <Col>
-          <img height={250} width={250} />
+          <img src={imageUrl} width={300} height={300} />
         </Col>
       </Row>
       <Row className="bg-light my-3 py-3">

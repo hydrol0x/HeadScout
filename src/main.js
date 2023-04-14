@@ -12,8 +12,8 @@ if (require("electron-squirrel-startup")) {
 }
 
 // globals and stuff will be moved to a better place later
-let pitScoutSheetID  = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
-let pitScoutTabName = "Sheet4"; 
+let pitScoutSheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
+let pitScoutTabName = "Sheet4";
 let matchSheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
 let matchTabName = "Sheet1";
 // TODO: Handle error as a message in the page instead of crashing (i.e return null )
@@ -24,12 +24,14 @@ const handleGetSheet = (event, type) => {
   let tabName;
   if (type === "pitScout") {
     sheetID = pitScoutSheetID;
-    tabName = pitScoutTabName ;
+    tabName = pitScoutTabName;
   } else if (type === "match") {
     sheetID = matchSheetID;
-    tabName =  matchTabName;
+    tabName = matchTabName;
   } else {
-    console.error(`ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`);
+    console.error(
+      `ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`
+    );
   }
 
   const data = getSheetsData(sheetID, tabName)
@@ -49,7 +51,7 @@ const handleGetSheet = (event, type) => {
 
 // TODO: cache a lot of these values and then bind it to a signle reload event (then reload button would call event)
 const handleUpdateSheetIds = (event, newSheetID, newTabName, type) => {
-  // based on whether you are setting the pit scouting google sheet IDs or the match data 
+  // based on whether you are setting the pit scouting google sheet IDs or the match data
   if (type === "pitScout") {
     pitScoutSheetID = newSheetID;
     pitScoutTabName = newTabName;
@@ -57,25 +59,29 @@ const handleUpdateSheetIds = (event, newSheetID, newTabName, type) => {
     matchSheetID = newSheetID;
     matchTabName = newTabName;
   } else {
-    console.error(`ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`);
+    console.error(
+      `ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`
+    );
   }
 };
 
 const handleGetSheetIds = (event, type) => {
-  console.log("handling sheet ids")
+  console.log("handling sheet ids");
   let sheetsID;
   let tabID;
   if (type === "pitScout") {
-    console.log("pitscout")
+    console.log("pitscout");
     sheetsID = pitScoutSheetID;
-    tabID= pitScoutTabName;
+    tabID = pitScoutTabName;
   } else if (type === "match") {
-    console.log("match")
+    console.log("match");
     sheetsID = matchSheetID;
-            console.log(`ID: ${sheetsID} `);
-    tabID=  matchTabName;
+    console.log(`ID: ${sheetsID} `);
+    tabID = matchTabName;
   } else {
-    console.error(`ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`);
+    console.error(
+      `ERROR: Invalid type of form '${type}', valid form types: 'pitScout', 'match'`
+    );
   }
   // needed to change names to avoid clashing var names in Settings.js
   return { sheetsID: sheetID, tabID: tabName };
@@ -87,6 +93,8 @@ const doGenerateRobotTotals = () => {
   // console.log(sheetsData);
   // const robotObj = generateRobotObj(sheetsData);
   // console.log(robotObj);
+  const sheetID = matchSheetID;
+  const tabName = matchTabName;
   const robotTotals = getSheetsData(sheetID, tabName)
     .then((sheetsData) => {
       return generateRobotTotals(generateRobotObj(sheetsData));
@@ -96,7 +104,8 @@ const doGenerateRobotTotals = () => {
 };
 
 const doGenerateRobotObj = () => {
-  console.log("generating robot Obj");
+  const sheetID = matchSheetID;
+  const tabName = matchTabName;
   const robotObj = getSheetsData(sheetID, tabName)
     .then((sheetsData) => {
       return generateRobotObj(sheetsData);
