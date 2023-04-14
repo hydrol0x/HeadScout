@@ -66,6 +66,7 @@ const handleUpdateSheetIds = (event, newSheetID, newTabName, type) => {
 };
 
 const handleGetSheetIds = (event, type) => {
+  console.log("handle get sheets id");
   console.log("handling sheet ids");
   let sheetsID;
   let tabID;
@@ -84,7 +85,7 @@ const handleGetSheetIds = (event, type) => {
     );
   }
   // needed to change names to avoid clashing var names in Settings.js
-  return { sheetsID: sheetID, tabID: tabName };
+  return { sheetsID: sheetsID, tabID: tabID };
 };
 
 const doGenerateRobotTotals = () => {
