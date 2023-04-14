@@ -12,13 +12,15 @@ const Settings = () => {
 
   useEffect(() => {
     const getIds = async () => {
-      const { sheetsID: matchSheetsID, tabID: matchTabID} = await window.sheetsAPI.getSheetIds("match");
+      const { sheetsID: matchSheetsID, tabID: matchTabID } =
+        await window.sheetsAPI.getSheetIds("match");
       setMatchSheetID(matchSheetsID);
       setMatchTabName(matchTabID);
 
-      const { sheetsID: pitScoutSheetsID, tabID: pitScoutTabID } = await window.sheetsAPI.getSheetIds("pitScout");
+      const { sheetsID: pitScoutSheetsID, tabID: pitScoutTabID } =
+        await window.sheetsAPI.getSheetIds("pitScout");
       setPitScoutSheetID(pitScoutSheetsID);
-      setPitScoutTabName(pitScoutTabID );
+      setPitScoutTabName(pitScoutTabID);
     };
     getIds();
   }, []);
@@ -30,8 +32,12 @@ const Settings = () => {
 
   const handlePitScoutSubmit = (e) => {
     e.preventDefault();
-    window.sheetsAPI.updateSheetIds(pitScoutSheetID, pitScoutTabName, "pitScout");
-  }
+    window.sheetsAPI.updateSheetIds(
+      pitScoutSheetID,
+      pitScoutTabName,
+      "pitScout"
+    );
+  };
 
   return (
     <Container fluid>
@@ -93,7 +99,11 @@ const Settings = () => {
               />
             </Form.Group>
 
-            <Button variant="primary" type="submit" onClick={handlePitScoutSubmit}>
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={handlePitScoutSubmit}
+            >
               Update
             </Button>
           </Form>
