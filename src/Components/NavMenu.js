@@ -17,6 +17,9 @@ function NavMenu() {
             <LinkContainer to="/team_lookup">
               <Nav.Link>Team Lookup</Nav.Link>
             </LinkContainer>
+            <LinkContainer to="/team_compare">
+              <Nav.Link>Compare Teams</Nav.Link>
+            </LinkContainer>
             <LinkContainer to="/settings">
               <Nav.Link>Settings</Nav.Link>
             </LinkContainer>
