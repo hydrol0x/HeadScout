@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import DataTable from "../Components/DataTableObj";
+import DataTableArr from "../Components/DataTableObjArrCustom";
 
 const TeamLookup = () => {
   const [teamNumInput, setTeamNumInput] = useState("");
@@ -9,6 +10,7 @@ const TeamLookup = () => {
   const [robotAverages, setRobotAverages] = useState({});
   const [pitScoutData, setPitScoutData] = useState({});
   const [imageUrl, setImageUrl] = useState("");
+  const [matchData, setMatchData] = useState([]);
 
   const getRobotTotals = async () => {
     const data = await window.dataFunctions.getRobotTotals(teamNumInput);
@@ -30,6 +32,12 @@ const TeamLookup = () => {
     });
   };
 
+  const getRobotMatchData = async () => {
+    const data = await window.dataFunctions.getRobotMatchData();
+    setMatchData(Object.values(data[teamNumInput]));
+    console.log(Object.values(data[teamNumInput]));
+  };
+
   // const getImageUrl = async () => {
   //   const pitScoutData = await window.sheetsAPI.getSheet("pitScout");
   //   console.log(pitScoutData);
@@ -49,6 +57,7 @@ const TeamLookup = () => {
     getRobotAverages();
     // getImageUrl();
     getPitScoutData();
+    getRobotMatchData();
   };
   return (
     <Container fluid>
@@ -91,8 +100,13 @@ const TeamLookup = () => {
         <DataTable data={robotAverages} />
       </Row>
       <Row className="bg-light my-3 py-3">
-        <h1 className="text-center"> Pit</h1>
+        <h1 className="text-center">Pit</h1>
         <DataTable data={pitScoutData} />
+      </Row>
+      <Row className="bg-light my-3 py-3">
+        <h1 className="text-center">Matches</h1>
+        <Button onClick={getRobotMatchData}>Test</Button>
+        <DataTableArr data={matchData} />
       </Row>
     </Container>
   );

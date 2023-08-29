@@ -11,6 +11,8 @@ contextBridge.exposeInMainWorld("sheetsAPI", {
 
 contextBridge.exposeInMainWorld("dataFunctions", {
   getRobotTotals: (teamNum) => ipcRenderer.invoke("get-robot-totals", teamNum),
+  getRobotMatchData: (teamNum) =>
+    ipcRenderer.invoke("get-robot-matches", teamNum),
   getRobotAverages: (teamNum) =>
     ipcRenderer.invoke("get-robot-averages", teamNum),
 });

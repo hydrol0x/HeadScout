@@ -133,6 +133,14 @@ const handleGetRobotAverages = async (event, teamNum) => {
   return robotAverages;
 };
 
+const handleGetRobotMatches = async (event, teamNum) => {
+  // console.log("getting robot matches");
+  const robotObject = await doGenerateRobotObj();
+  return robotObject;
+  // console.log(robotObject);
+  // const robotMatches = get some object that represents this
+};
+
 const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
@@ -162,6 +170,7 @@ app.on("ready", () => {
   ipcMain.handle("get-sheet-ids", handleGetSheetIds);
   ipcMain.handle("get-robot-totals", handleGetRobotTotals);
   ipcMain.handle("get-robot-averages", handleGetRobotAverages);
+  ipcMain.handle("get-robot-matches", handleGetRobotMatches);
   ipcMain.on("update-sheet-ids", handleUpdateSheetIds);
 });
 
