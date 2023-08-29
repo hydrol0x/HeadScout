@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import DataTable from "../Components/DataTable";
+import DataTable from "../Components/DataTableObjArr";
 
 const DataDisplay = () => {
   return (
@@ -12,7 +12,7 @@ const DataDisplay = () => {
       </Row>
       <Row>
         <Col>
-          <DataTable />
+          <DataTable sheetType={"match"} />
         </Col>
       </Row>
     </Container>
