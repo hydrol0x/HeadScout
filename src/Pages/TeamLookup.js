@@ -105,7 +105,6 @@ const TeamLookup = () => {
       </Row>
       <Row className="bg-light my-3 py-3">
         <h1 className="text-center">Matches</h1>
-        <Button onClick={getRobotMatchData}>Test</Button>
         <DataTableArr data={matchData} />
       </Row>
     </Container>
