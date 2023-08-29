@@ -12,7 +12,7 @@ const DataDisplay = () => {
       </Row>
       <Row>
         <Col>
-          <DataTable sheetType={"match"}/>
+          <DataTable sheetType={"match"} />
         </Col>
       </Row>
     </Container>

@@ -5,7 +5,7 @@ const { contextBridge, ipcRenderer } = require("electron");
 contextBridge.exposeInMainWorld("sheetsAPI", {
   getSheet: (type) => ipcRenderer.invoke("get-sheet", type),
   getSheetIds: (type) => ipcRenderer.invoke("get-sheet-ids", type),
-  updateSheetIds: (newSheetID, newTabName) =>
+  updateSheetIds: (newSheetID, newTabName, type) =>
     ipcRenderer.send("update-sheet-ids", newSheetID, newTabName, type),
 });
 
