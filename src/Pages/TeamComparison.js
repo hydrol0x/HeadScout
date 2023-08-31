@@ -8,12 +8,30 @@ import React from "react";
 const TeamComparison = () => {
   const teamNumInput = "";
   const [teamNum1, setTeamNum1] = useState();
+  const [robot1Totals, setRobot1Totals] = useState();
+  const [image1Url, setImage1Url] = useState("");
+
   const [teamNum2, setTeamNum2] = useState();
+  const [robot2Totals, setRobot2Totals] = useState();
+  const [image2Url, setImage2Url] = useState("");
+
   const handleTeamNumSubmit = (e) => {
     e.preventDefault();
-    console.log(teamNum1);
-    console.log(teamNum2);
+    getImgUrls();
   };
+
+  const getImgUrls = async () => {
+    const data = await window.sheetsAPI.getSheet("pitScout");
+    data.map((team) => {
+      if (team["Team #"] === teamNum1) {
+        setImage1Url(team["Image"]);
+      }
+      if (team["Team #"] === teamNum2) {
+        setImage2Url(team["Image"]);
+      }
+    });
+  };
+
   return (
     <Container fluid>
       <Row className="p-3">
@@ -50,6 +68,32 @@ const TeamComparison = () => {
               Search
             </Button>
           </Form>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <div>
+            <img
+              className="mx-2"
+              style={{ verticalAlign: "top" }}
+              src={image1Url}
+              width={150}
+              height={150}
+            />
+            <p style={{ display: "inline" }}>lorem ipsum doler sit amet</p>
+          </div>
+        </Col>
+        <Col>
+          <div>
+            <img
+              className="mx-2"
+              style={{ verticalAlign: "top" }}
+              src={image2Url}
+              width={150}
+              height={150}
+            />
+            <p style={{ display: "inline" }}>lorem ipsum doler sit amet</p>
+          </div>
         </Col>
       </Row>
     </Container>
