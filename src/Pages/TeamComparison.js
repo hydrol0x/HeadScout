@@ -71,11 +71,16 @@ const TeamComparison = () => {
         </Col>
       </Row>
       <Row>
-        <Col>
+        <Col className="bg-light m-4 p-2">
           <div>
             <img
               className="mx-2"
-              style={{ verticalAlign: "top" }}
+              style={{
+                verticalAlign: "top",
+                backgroundColor: "#f7f7f7",
+                borderRadius: "5px",
+                border: "1px solid black",
+              }}
               src={image1Url}
               width={150}
               height={150}
@@ -83,11 +88,16 @@ const TeamComparison = () => {
             <p style={{ display: "inline" }}>lorem ipsum doler sit amet</p>
           </div>
         </Col>
-        <Col>
+        <Col className="bg-light m-4 p-2">
           <div>
             <img
               className="mx-2"
-              style={{ verticalAlign: "top" }}
+              style={{
+                verticalAlign: "top",
+                backgroundColor: "#f7f7f7",
+                borderRadius: "5px",
+                border: "1px solid black",
+              }}
               src={image2Url}
               width={150}
               height={150}
