@@ -6,18 +6,30 @@ import DataTableArr from "../Components/DataTableObjArrCustom";
 import React from "react";
 
 const TeamComparison = () => {
-  const teamNumInput = "";
   const [teamNum1, setTeamNum1] = useState();
   const [robot1Totals, setRobot1Totals] = useState();
   const [image1Url, setImage1Url] = useState("");
+  const [robot1Averages, setRobot1Averages] = useState({});
 
   const [teamNum2, setTeamNum2] = useState();
   const [robot2Totals, setRobot2Totals] = useState();
+  const [robot2Averages, setRobot2Averages] = useState({});
   const [image2Url, setImage2Url] = useState("");
 
   const handleTeamNumSubmit = (e) => {
     e.preventDefault();
     getImgUrls();
+    getRobotAverages();
+    console.log(robot1Averages);
+    console.log(Object.entries(robot1Averages));
+  };
+
+  const getRobotAverages = async () => {
+    const data1 = await window.dataFunctions.getRobotAverages(teamNum1);
+    const data2 = await window.dataFunctions.getRobotAverages(teamNum2);
+    console.log("data");
+    setRobot1Averages(data1);
+    setRobot2Averages(data2);
   };
 
   const getImgUrls = async () => {
