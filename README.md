@@ -17,6 +17,12 @@ Compare the statistics of two robots.
 
 Calculate more statistics for robots, match probabilities, etc.
 
+## Settings Page
+
+Currently just lets you set sheet ID.
+![image](https://github.com/hydrol0x/HeadScout/assets/34951139/c1f93469-98d0-4afd-a72e-b82dee3b9ca1)
+
+
 ## Planned
 
 - For now, import from google sheets (current way our team stores scouting data + automatic integration with google forms)
