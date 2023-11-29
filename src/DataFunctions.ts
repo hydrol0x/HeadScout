@@ -1,16 +1,28 @@
 // functions for operating on robot data and for re-organizing it
 
-const isNumeric = (num) => {
+const isNumeric = (num: number) => {
   return !isNaN(num);
 };
 
-const generateRobotObj = (sheetsData) => {
+interface MatchData {
+  [key: string]: any; // Replace 'any' with more specific types as per your data structure
+  "Team Number": number; // Example field, adjust according to actual data
+  "Match Number": number; // Example field, adjust according to actual data
+}
+
+interface RobotObject {
+  [teamNumber: number]: {
+    [matchNumber: number]: MatchData;
+  };
+}
+
+export const generateRobotObj = (sheetsData: MatchData[]): RobotObject => {
   /**
    * Generate an object that is grouped based on each robot
    * i.e {... 'teamNumber': { `ROBOT DATA` } ...}
    */
-  let robots = {};
-  sheetsData.map((matchData) => {
+  let robots: RobotObject = {};
+  sheetsData.map((matchData: MatchData) => {
     const teamNum = matchData["Team Number"];
     const matchNum = matchData["Match Number"];
     // teamNum not `undefined` and is not yet in robots array
@@ -27,7 +39,7 @@ const generateRobotObj = (sheetsData) => {
 /** function that takes in robots object and calculates the totals for each robot
  * i.e Loop over each value and increment a counter or add it up so you get total cones scored top, total parks, etc.
  *   */
-const generateRobotTotals = (robotsObj) => {
+export const generateRobotTotals = (robotsObj) => {
   // TODO for later: figure out how to detect values like charge station that have multiple
   // possible string values. Then create separate entry for each
   // i.e Auto Charge Station (Bottom): 10
@@ -63,7 +75,7 @@ const generateRobotTotals = (robotsObj) => {
   return robotTotals;
 };
 
-const generateRobotAverages = (robotsObj, teamNum) => {
+export const generateRobotAverages = (robotsObj, teamNum) => {
   const numMatches = Object.keys(robotsObj[teamNum]).length;
 
   const robotTotals = generateRobotTotals(robotsObj)[teamNum];
@@ -77,8 +89,8 @@ const generateRobotAverages = (robotsObj, teamNum) => {
   return robotAverages;
 };
 
-module.exports = {
-  generateRobotObj,
-  generateRobotTotals,
-  generateRobotAverages,
-};
+// module.exports = {
+//   generateRobotObj,
+//   generateRobotTotals,
+//   generateRobotAverages,
+// };
