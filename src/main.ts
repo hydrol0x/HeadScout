@@ -1,5 +1,6 @@
 const { getSheetsData } = require("./sheetsApi");
 const { app, BrowserWindow, ipcMain } = require("electron");
+import { IpcMainEvent } from "electron";
 // const {
 //   generateRobotObj,
 //   generateRobotTotals,
@@ -24,7 +25,7 @@ let matchSheetID = "1CUyWoJxUDowDXjNDxubQgOPFUIKvwOEIgOioDdZG8o0";
 let matchTabName = "Sheet1";
 // TODO: Handle error as a message in the page instead of crashing (i.e return null )
 //  and check in DataTable, then display that failed
-const handleGetSheet = (event, type) => {
+const handleGetSheet = (event: IpcMainEvent, type: string) => {
   // returns the data depending on the type of sheet requested, either match data or pit scouting data
   let sheetID;
   let tabName;

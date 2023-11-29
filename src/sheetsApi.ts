@@ -1,4 +1,6 @@
-const getSheetsData = async (sheetID, sheetTab) => {
+import { SheetsData } from "./Types";
+
+const getSheetsData = async (sheetID: string, sheetTab: string): Promise<SheetsData> => {
   const data = fetch(`https://opensheet.elk.sh/${sheetID}/${sheetTab}`)
     .then((res) => {
       return res.json();

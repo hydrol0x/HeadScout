@@ -4,7 +4,7 @@ const isNumeric = (num: number) => {
   return !isNaN(num);
 };
 
-interface MatchData {
+export interface MatchData {
   [key: string]: any; // Replace 'any' with more specific types as per your data structure
   "Team Number": number; // Example field, adjust according to actual data
   "Match Number": number; // Example field, adjust according to actual data
